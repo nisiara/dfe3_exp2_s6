@@ -10,88 +10,48 @@ import {
 	CardTitle
 } from '@/components/ui/card'
 
-export function SectionCards() {
+export function SectionCards({
+	viajesFinalizados,
+	viajesConfirmados,
+	viajesEnProceso
+}: {
+	viajesFinalizados: any[]
+	viajesConfirmados: any[]
+	viajesEnProceso: any[]
+}) {
 	return (
 		<div className="grid grid-cols-1 gap-4 *:data-[slot=card]:bg-linear-to-t *:data-[slot=card]:shadow-xs @xl/main:grid-cols-2 @5xl/main:grid-cols-4">
 			<Card className="@container/card">
 				<CardHeader>
-					<CardDescription>Total Registros</CardDescription>
+					<CardDescription>Total Viajes</CardDescription>
 					<CardTitle className="text-2xl font-bold tabular-nums @[250px]/card:text-3xl">
-						$1.250
+						{viajesFinalizados.length + viajesConfirmados.length + viajesEnProceso.length}
 					</CardTitle>
-					<CardAction>
-						<Badge variant="outline">
-							<IconTrendingUp />
-							+12.5%
-						</Badge>
-					</CardAction>
 				</CardHeader>
-				<CardFooter className="flex-col items-start gap-1.5 text-sm">
-					<div className="line-clamp-1 flex gap-2 font-medium">
-						Trending up this month <IconTrendingUp className="size-4" />
-					</div>
-					<div className="text-muted-foreground">Visitors for the last 6 months</div>
-				</CardFooter>
 			</Card>
 			<Card className="@container/card">
 				<CardHeader>
-					<CardDescription>Nuevos Viajes</CardDescription>
+					<CardDescription>Viajes Confirmados</CardDescription>
 					<CardTitle className="text-2xl font-bold tabular-nums @[250px]/card:text-3xl">
-						1,234
+						{viajesConfirmados.length}
 					</CardTitle>
-					<CardAction>
-						<Badge variant="outline">
-							<IconTrendingDown />
-							-20%
-						</Badge>
-					</CardAction>
 				</CardHeader>
-				<CardFooter className="flex-col items-start gap-1.5 text-sm">
-					<div className="line-clamp-1 flex gap-2 font-medium">
-						Down 20% this period <IconTrendingDown className="size-4" />
-					</div>
-					<div className="text-muted-foreground">Acquisition needs attention</div>
-				</CardFooter>
 			</Card>
 			<Card className="@container/card">
 				<CardHeader>
-					<CardDescription>Viajes Pendientes</CardDescription>
+					<CardDescription>Viajes en Proceso</CardDescription>
 					<CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-						45,678
+						{viajesEnProceso.length}
 					</CardTitle>
-					<CardAction>
-						<Badge variant="outline">
-							<IconTrendingUp />
-							+12.5%
-						</Badge>
-					</CardAction>
 				</CardHeader>
-				<CardFooter className="flex-col items-start gap-1.5 text-sm">
-					<div className="line-clamp-1 flex gap-2 font-medium">
-						Strong user retention <IconTrendingUp className="size-4" />
-					</div>
-					<div className="text-muted-foreground">Engagement exceed targets</div>
-				</CardFooter>
 			</Card>
 			<Card className="@container/card">
 				<CardHeader>
-					<CardDescription>Viajes Realizados</CardDescription>
+					<CardDescription>Viajes Finalizados</CardDescription>
 					<CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-						4.5%
+						{viajesFinalizados.length}
 					</CardTitle>
-					<CardAction>
-						<Badge variant="outline">
-							<IconTrendingUp />
-							+4.5%
-						</Badge>
-					</CardAction>
 				</CardHeader>
-				<CardFooter className="flex-col items-start gap-1.5 text-sm">
-					<div className="line-clamp-1 flex gap-2 font-medium">
-						Steady performance increase <IconTrendingUp className="size-4" />
-					</div>
-					<div className="text-muted-foreground">Meets growth projections</div>
-				</CardFooter>
 			</Card>
 		</div>
 	)
