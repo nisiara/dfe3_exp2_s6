@@ -51,7 +51,7 @@ Antes de ejecutar el proyecto, asegúrate de tener instalados:
 
 1. Clona el repositorio:
    ```bash
-   git clone <url-del-repositorio>
+   git clone https://github.com/nisiara/dfe3_exp2_s5.git
    cd dfe3_exp2_s5
    ```
 
