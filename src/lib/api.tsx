@@ -30,13 +30,31 @@ export interface Travel {
 	estado: 'en proceso' | 'confirmado' | 'finalizado'
 }
 
-export async function fetchTravels(): Promise<Travel[]> {
+export async function fetchAllTravels(): Promise<Travel[]> {
 	const response = await fetch(API_URL)
 	if (!response.ok) {
-		throw new Error('Error al obtener el registro de viajes')
+		throw new Error('Error al obtener los viajes')
 	}
 	const json = await response.json()
-	// El backend responde { status, message, data }
+	const data = json.data || []
+	return data.map((travel: TravelInput & { id: string; estado: Travel['estado'] }) => ({
+		...travel,
+		fechaSalida: travel.fechaSalida
+			? parse(travel.fechaSalida, 'dd-MM-yyyy', new Date())
+			: new Date(),
+		fechaRegreso: travel.fechaRegreso
+			? parse(travel.fechaRegreso, 'dd-MM-yyyy', new Date())
+			: new Date()
+	}))
+}
+
+export async function fetchFilteredTravels(status: Travel['estado']): Promise<Travel[]> {
+	const response = await fetch(`${API_URL}/status/${status}`)
+	if (!response.ok) {
+		const error = await response.json()
+		throw new Error(error.message || 'Error al filtrar los viajes por estado')
+	}
+	const json = await response.json()
 	const data = json.data || []
 	return data.map((travel: TravelInput & { id: string; estado: Travel['estado'] }) => ({
 		...travel,
@@ -65,12 +83,14 @@ export async function createTravel(travel: TravelInput): Promise<Travel> {
 }
 
 export async function filterTravelsByStatus(status: Travel['estado']): Promise<Travel[]> {
-	const response = await fetch(`${API_URL}?estado=${status}`)
+	const response = await fetch(`${API_URL}/status/${status}`)
 	if (!response.ok) {
 		const error = await response.json()
 		throw new Error(error.message || 'Error al filtrar los viajes por estado')
 	}
-	const data = await response.json()
+	const json = await response.json()
+	const data = json.data || []
+	console.log('Viajes filtrados por estado:', data)
 	return data.map((travel: TravelInput & { id: string; estado: Travel['estado'] }) => ({
 		...travel,
 		fechaSalida: travel.fechaSalida

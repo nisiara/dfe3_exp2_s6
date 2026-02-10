@@ -1,10 +1,10 @@
 import {
 	Combobox,
 	ComboboxContent,
+	ComboboxEmpty,
 	ComboboxInput,
 	ComboboxItem,
-	ComboboxList,
-	ComboboxEmpty
+	ComboboxList
 } from '@/components/ui/combobox'
 
 const estados = ['Todos', 'En Proceso', 'Confirmado', 'Finalizado'] as const

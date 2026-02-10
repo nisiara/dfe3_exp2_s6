@@ -2,7 +2,7 @@
 
 import { IconPlaneArrival, IconPlaneDeparture } from '@tabler/icons-react'
 import { format } from 'date-fns'
-import { useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { toast } from 'sonner'
 import { Badge } from '@/components/ui/badge'
 
@@ -16,7 +16,7 @@ import {
 } from '@/components/ui/table'
 
 import type { Travel } from '@/lib/api'
-import { fetchTravels, updateTravelStatus } from '@/lib/api'
+import { fetchAllTravels, fetchFilteredTravels, updateTravelStatus } from '@/lib/api'
 
 import FilterTravels from './filter-travels'
 import ChangeStatusTravel from './change-status-travel'
@@ -26,26 +26,41 @@ export default function TableTravels({ initialTravels }: { initialTravels: Trave
 	const [error, setError] = useState<string | null>(null)
 	const [selectedStatus, setSelectedStatus] = useState<string>('')
 
+	const refreshTravels = useCallback(async () => {
+		setError(null)
+		try {
+			const statusMap: Record<string, Travel['estado']> = {
+				'En Proceso': 'en proceso',
+				Confirmado: 'confirmado',
+				Finalizado: 'finalizado'
+			}
+			const status =
+				selectedStatus && selectedStatus !== 'Todos' ? statusMap[selectedStatus] || null : null
+			const data = status ? await fetchFilteredTravels(status) : await fetchAllTravels()
+			setTravels(data)
+		} catch (err: unknown) {
+			const message = err instanceof Error ? err.message : 'Error desconocido al obtener los viajes'
+			setError(message)
+		}
+	}, [selectedStatus])
+
+	useEffect(() => {
+		if (!selectedStatus) return
+		void refreshTravels()
+	}, [refreshTravels, selectedStatus])
+
 	const handleStatusChange = async (travelId: string, newStatus: Travel['estado']) => {
 		try {
 			await updateTravelStatus(travelId, newStatus)
 			toast.success('Estado actualizado correctamente')
-
-			const data = await fetchTravels()
-			setTravels(data)
-		} catch (err: any) {
-			setError(err.message || 'Error desconocido al actualizar el estado')
+			await refreshTravels()
+		} catch (err: unknown) {
+			const message =
+				err instanceof Error ? err.message : 'Error desconocido al actualizar el estado'
+			setError(message)
 			toast.error('Error al actualizar el estado')
 		}
 	}
-
-	const filteredTravels =
-		selectedStatus === 'Todos' || !selectedStatus
-			? travels
-			: travels.filter(
-					travel =>
-						travel.estado === selectedStatus.toLowerCase().replace('en proceso', 'en proceso')
-				)
 
 	return (
 		<main>
@@ -54,7 +69,7 @@ export default function TableTravels({ initialTravels }: { initialTravels: Trave
 				<div className="mb-4 text-red-500">
 					<p>{error}</p>
 				</div>
-			) : filteredTravels.length === 0 ? (
+			) : travels.length === 0 ? (
 				<div className="bg-yellow-100 p-4 rounded text-yellow-600">
 					<p className="text-center text-xs font-semibold">No hay registros</p>
 				</div>
@@ -72,7 +87,7 @@ export default function TableTravels({ initialTravels }: { initialTravels: Trave
 						</TableRow>
 					</TableHeader>
 					<TableBody>
-						{filteredTravels.map(travel => (
+						{travels.map(travel => (
 							<TableRow key={travel.id}>
 								<TableCell className="flex flex-col">
 									<b className="text-md">{travel.fullName}</b>
