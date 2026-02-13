@@ -1,42 +1,35 @@
 import { parse } from 'date-fns'
+import type { Travel, TravelInput } from './types'
 
 const API_URL = 'http://localhost:3001/api/travels'
 
-export interface TravelInput {
-	rut: string
-	fullName: string
-	email: string
-	origen: string
-	fechaSalida: string
-	horaSalida: string
-	destino: string
-	fechaRegreso: string
-	horaRegreso: string
-	tipoViaje: string
-}
 
-export interface Travel {
-	id: string
-	rut: string
-	fullName: string
-	email: string
-	origen: string
-	fechaSalida: Date
-	horaSalida: string
-	destino: string
-	fechaRegreso: Date
-	horaRegreso: string
-	tipoViaje: string
-	estado: 'en proceso' | 'confirmado' | 'finalizado'
-}
 
-export async function fetchAllTravels(): Promise<Travel[]> {
-	const response = await fetch(API_URL)
-	if (!response.ok) {
-		throw new Error('Error al obtener los viajes')
+export async function fetchAllTravels(estado?: string): Promise<Travel[]> {
+	// Construimos la URL con el parámetro de búsqueda si existe
+	const url = new URL(API_URL)
+	if (estado && estado !== 'todos') {
+		url.searchParams.append('estado', estado)
 	}
-	const json = await response.json()
-	const data = json.data || []
+
+	const response = await fetch(url.toString(), {
+		cache: 'no-store' // Evita cachear respuestas en Next.js
+	})
+
+	let json: any
+	try {
+		json = await response.json()
+	} catch (_e) {
+		throw new Error('Respuesta del servidor no es JSON válido')
+	}
+
+	if (!response.ok) {
+		throw new Error(json?.message || 'Error al obtener los viajes')
+	}
+
+	// Aceptamos tanto array directo como objeto con .data
+	const data = Array.isArray(json) ? json : json.data || []
+
 	return data.map((travel: TravelInput & { id: string; estado: Travel['estado'] }) => ({
 		...travel,
 		fechaSalida: travel.fechaSalida
@@ -50,11 +43,10 @@ export async function fetchAllTravels(): Promise<Travel[]> {
 
 export async function fetchFilteredTravels(status: Travel['estado']): Promise<Travel[]> {
 	const response = await fetch(`${API_URL}/status/${status}`)
-	if (!response.ok) {
-		const error = await response.json()
-		throw new Error(error.message || 'Error al filtrar los viajes por estado')
-	}
 	const json = await response.json()
+	if (!response.ok) {
+		throw new Error(json?.message || 'Error al filtrar los viajes por estado')
+	}
 	const data = json.data || []
 	return data.map((travel: TravelInput & { id: string; estado: Travel['estado'] }) => ({
 		...travel,
@@ -84,11 +76,10 @@ export async function createTravel(travel: TravelInput): Promise<Travel> {
 
 export async function filterTravelsByStatus(status: Travel['estado']): Promise<Travel[]> {
 	const response = await fetch(`${API_URL}/status/${status}`)
-	if (!response.ok) {
-		const error = await response.json()
-		throw new Error(error.message || 'Error al filtrar los viajes por estado')
-	}
 	const json = await response.json()
+	if (!response.ok) {
+		throw new Error(json?.message || 'Error al filtrar los viajes por estado')
+	}
 	const data = json.data || []
 	console.log('Viajes filtrados por estado:', data)
 	return data.map((travel: TravelInput & { id: string; estado: Travel['estado'] }) => ({

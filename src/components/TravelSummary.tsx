@@ -1,24 +1,15 @@
-import { IconTrendingDown, IconTrendingUp } from '@tabler/icons-react'
+import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import type { Travel } from '@/lib/types'
 
-import { Badge } from '@/components/ui/badge'
-import {
-	Card,
-	CardAction,
-	CardDescription,
-	CardFooter,
-	CardHeader,
-	CardTitle
-} from '@/components/ui/card'
+type TravelSummaryProps = {
+	travels: Travel[]
+}
 
-export function SectionCards({
-	viajesFinalizados,
-	viajesConfirmados,
-	viajesEnProceso
-}: {
-	viajesFinalizados: any[]
-	viajesConfirmados: any[]
-	viajesEnProceso: any[]
-}) {
+const TravelSummary = async ({ travels }: TravelSummaryProps) => {
+	const viajesConfirmados = travels.filter(travel => travel.estado === 'confirmado')
+	const viajesEnProceso = travels.filter(travel => travel.estado === 'en proceso')
+	const viajesFinalizados = travels.filter(travel => travel.estado === 'finalizado')
+
 	return (
 		<div className="grid grid-cols-1 gap-4 *:data-[slot=card]:bg-linear-to-t *:data-[slot=card]:shadow-xs @xl/main:grid-cols-2 @5xl/main:grid-cols-4">
 			<Card className="@container/card">
@@ -56,3 +47,5 @@ export function SectionCards({
 		</div>
 	)
 }
+
+export default TravelSummary

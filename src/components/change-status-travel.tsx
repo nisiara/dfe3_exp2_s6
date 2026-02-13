@@ -1,5 +1,5 @@
-import { Travel } from '@/lib/api'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
+import type { Travel } from '@/lib/api'
 
 interface ChangeStatusTravelProps {
 	travel: Travel

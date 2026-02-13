@@ -17,9 +17,8 @@ import {
 
 import type { Travel } from '@/lib/api'
 import { fetchAllTravels, fetchFilteredTravels, updateTravelStatus } from '@/lib/api'
-
-import FilterTravels from './filter-travels'
 import ChangeStatusTravel from './change-status-travel'
+import FilterTravels from './filter-travels'
 
 export default function TableTravels({ initialTravels }: { initialTravels: Travel[] }) {
 	const [travels, setTravels] = useState<Travel[]>(initialTravels)
