@@ -105,3 +105,20 @@ export async function updateTravelStatus(id: string, status: Travel['estado']): 
 	const result = await response.json()
 	return result.data
 }
+
+export async function deleteTravel(id: string): Promise<void> {
+	const response = await fetch(`${API_URL}/${id}`, {
+		method: 'DELETE'
+	})
+
+	if (!response.ok) {
+		let message = 'Error al eliminar el viaje'
+		try {
+			const error = await response.json()
+			message = error?.message || message
+		} catch (_err) {
+			// Ignoramos errores de parseo
+		}
+		throw new Error(message)
+	}
+}

@@ -11,29 +11,28 @@ import {
 } from '@/components/ui/table'
 import type { Travel } from '@/lib/types'
 import TravelChangeStatus from './TravelChangeStatus'
+import TravelDeleteButton from './TravelDeleteButton'
 
 type TravelListProps = {
 	travels: Travel[]
 }
+
 
 const TravelList = async ({ travels }: TravelListProps) => {
 	return travels.length === 0 ? (
 		<div className="bg-yellow-100 p-4 rounded text-yellow-600">
 			<p className="text-center text-xs font-semibold">No hay registros</p>
 		</div>
-		) 
-		: 
-		(
+	) : (
 		<Table>
 			<TableHeader className="bg-slate-100">
 				<TableRow>
 					<TableHead className="font-semibold">Cliente</TableHead>
-
 					<TableHead className="font-semibold">Origen</TableHead>
 					<TableHead className="font-semibold">Destino</TableHead>
 					<TableHead className="font-semibold">Tipo de Viaje</TableHead>
-
 					<TableHead className="font-semibold">Estado</TableHead>
+					<TableHead className="font-semibold"></TableHead>
 				</TableRow>
 			</TableHeader>
 			<TableBody>
@@ -88,11 +87,13 @@ const TravelList = async ({ travels }: TravelListProps) => {
 						<TableCell>
 							<TravelChangeStatus travel={travel} />
 						</TableCell>
+						<TableCell>
+							<TravelDeleteButton travelId={travel.id} />
+						</TableCell>
 					</TableRow>
 				))}
 			</TableBody>
-		</Table>	
-		
+		</Table>
 	)
 }
 

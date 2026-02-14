@@ -1,5 +1,5 @@
-import { FormTravels } from '@/components/form-travels'
+import TravelCreateNew from '@/components/TravelCreateNew'
 
 export default function CreateTravel() {
-	return <FormTravels />
+	return <TravelCreateNew />
 }
