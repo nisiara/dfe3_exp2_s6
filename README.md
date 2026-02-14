@@ -1,25 +1,26 @@
-# Desarrollo Frontend III - Experiencia 2 Semana 5
+# Desarrollo Frontend III - Experiencia 2 Semana 6
 ![Next.js](https://img.shields.io/badge/Next.js-16.1.6-000000?logo=next.js&logoColor=white)
 ![React](https://img.shields.io/badge/React-19.2.3-61DAFB?logo=react&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?logo=tailwind-css&logoColor=white)
 ![Biome](https://img.shields.io/badge/Biome-2.2.0-61DAFB?logo=biome&logoColor=white)
-![Shadcn/ui](https://img.shields.io/badge/Shadcn/ui-3.8.4-000000?logo=shadcn/ui&logoColor=white)
+![Shadcn/UI](https://img.shields.io/badge/Shadcn/UI-3.8.4-000000?logo=shadcn/ui&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?logo=typescript&logoColor=white)
 
 ## Descripción del Proyecto
 
-Este proyecto es una aplicación de gestión de viajes desarrollada como parte del curso Desarrollo Frontend III. Consiste en un frontend construido con Next.js y React, y un backend API desarrollado con Express.js y Node.js. La aplicación permite a los usuarios crear viajes y visualizar una lista de viajes organizados por estado (en proceso, confirmado, finalizado).
+Este proyecto es una aplicación de gestión de viajes desarrollada como parte del curso Desarrollo Frontend III. Consiste en un frontend construido con Next.js y React, y un backend API desarrollado con Express.js y Node.js. La aplicación permite a los usuarios crear viajes y visualizar una lista de viajes organizados por estado (en proceso, confirmado, finalizado), además de borrar, filtrar por estado y contar con estados de carga que simulan retardos de red.
 
 El frontend proporciona una interfaz de usuario moderna y responsiva utilizando Tailwind CSS y componentes de Shadcn UI. El backend maneja el almacenamiento de datos de viajes y la lógica de negocio correspondiente.
 
 ## Características Principales
 
-- **Gestión de Viajes**: Crear nuevos viajes y listar viajes existentes filtrados por estado.
+- **Gestión de Viajes**: Crear nuevos viajes, listar viajes existentes y filtrarlos por estado.
 - **Componentes SSR y CSR**: Utilización de componentes por el lado del servidor y cliente.
 - **Interfaz Responsiva**: Diseño adaptativo que funciona en dispositivos móviles y de escritorio.
 - **API RESTful**: Backend con endpoints para operaciones CRUD en viajes.
 - **Validación de Datos**: Middleware para validar entradas en el backend.
 - **Almacenamiento de Datos**: Datos almacenados en archivos JSON para simplicidad (adecuado para desarrollo y pruebas).
+- **Skeletons y Suspense**: Páginas principales con `Suspense` y skeletons (`HomeSkeleton`, `CreateTravelSkeleton`) que simulan una demora de 5 segundos para mostrar escenarios de carga.
 
 ## Tecnologías Utilizadas
 
@@ -47,10 +48,10 @@ Antes de ejecutar el proyecto, asegúrate de tener instalados:
 
 ## Instalación
 
-1. Clona el repositorio:
+1. Clona el repositorio del frontend:
    ```bash
-   git clone https://github.com/nisiara/dfe3_exp2_s5.git
-   cd dfe3_exp2_s5
+   git clone https://github.com/nisiara/dfe3_exp2_s6.git
+   cd dfe3_exp2_s6
    ```
 
 2. Instala las dependencias del frontend:
@@ -58,13 +59,13 @@ Antes de ejecutar el proyecto, asegúrate de tener instalados:
    npm install
    ```
 
-2. Clona el repositorio del backend:
+3. Clona el repositorio del backend (en paralelo al frontend):
    ```bash
-   git clone https://github.com/nisiara/dfe3_exp2_s5_be.git
-   cd ../travel-backend
+   git clone https://github.com/nisiara/travel-backend.git
+   cd travel-backend
    ```
 
-3. Instala las dependencias del backend:
+4. Instala las dependencias del backend:
    ```bash
    npm install
    ```
@@ -77,7 +78,7 @@ Antes de ejecutar el proyecto, asegúrate de tener instalados:
    ```
    El backend estará disponible en `http://localhost:3001`.
 
-2. En una nueva terminal, desde el directorio del frontend (`dfe3_exp2_s5`), inicia el servidor de desarrollo:
+2. En una nueva terminal, desde el directorio del frontend (`dfe3_exp2_s6`), inicia el servidor de desarrollo:
    ```bash
    npm run dev
    ```
@@ -94,24 +95,26 @@ Antes de ejecutar el proyecto, asegúrate de tener instalados:
 ## Estructura del Proyecto
 
 ```
-dfe3_exp2_s5/ (Frontend)
+dfe3_exp2_s6/
 ├── src/
 │   ├── app/
-│   │   ├── page.tsx                 # Página principal
-│   │   ├── create-travel/page.tsx   # Página para crear viajes
-│   │   └── list-travels/page.tsx    # Página para listar viajes
+│   │   ├── page.tsx                 # Dashboard con TravelSummary + TravelList bajo Suspense
+│   │   ├── create-travel/page.tsx   # Formulario (TravelCreateForm) con delay simulado
+│   │   └── list-travels/page.tsx    # Vista alternativa solo para listado
 │   ├── components/
-│   │   ├── ui/                      # Componentes de UI (Shadcn)
-│   │   ├── form-travels.tsx         # Formulario para viajes
-│   │   ├── table-travels.tsx        # Tabla de viajes
-│   │   └── ...                      # Otros componentes
+│   │   ├── TravelManager.tsx        # Componente servidor que trae y filtra viajes
+│   │   ├── TravelCreateForm.tsx     # Formulario cliente para crear viajes
+│   │   ├── TravelSummary.tsx        # Cards con métricas
+│   │   ├── TravelList.tsx           # Tabla con acciones (cambiar estado, eliminar)
+│   │   ├── skeletons/               # HomeSkeleton, CreateTravelSkeleton
+│   │   └── ui/                      # Componentes Shadcn UI
 │   ├── lib/
-│   │   ├── api.tsx                  # Funciones para llamadas a la API
-│   │   └── utils.ts                 # Utilidades
+│   │   ├── api.tsx                  # Fetchers hacia el backend
+│   │   └── utils.ts                 # Helpers generales
 │   └── hooks/
-│       └── use-mobile.ts            # Hook personalizado
-├── public/                          # Archivos estáticos
-└── package.json                     # Dependencias y scripts
+│       └── use-mobile.ts            # Hook para navegación responsive
+├── public/
+└── package.json
 
 ```
 
@@ -125,6 +128,10 @@ dfe3_exp2_s5/ (Frontend)
 - `npm run lint:fix`: Corrige automáticamente errores de linting.
 - `npm run format`: Formatea el código.
 - `npm run check`: Verifica el código con Biome.
+
+### Backend
+- `npm run dev`: Inicia el servidor Express en modo desarrollo.
+- `npm run start`: Levanta el servidor en modo producción.
 
 
 ---

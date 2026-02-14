@@ -34,7 +34,7 @@ import { createTravel } from '@/lib/api'
 import { Card, CardContent, CardHeader } from './ui/card'
 import { RadioGroup, RadioGroupItem } from './ui/radio-group'
 
-const TravelCreateNew = () => {
+const TravelCreateForm = () => {
 	const [dataForm, setDataForm] = useState({
 		rut: '',
 		fullName: '',
@@ -531,4 +531,4 @@ const TravelCreateNew = () => {
 	)
 }
 
-export default TravelCreateNew
+export default TravelCreateForm
