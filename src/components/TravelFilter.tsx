@@ -9,23 +9,22 @@ import {
 	ComboboxList
 } from '@/components/ui/combobox'
 
-const estados = {
+const states = {
 	todos: 'todos',
 	enProceso: 'en proceso',
 	confirmado: 'confirmado',
 	finalizado: 'finalizado'
 } as const
 
-
-interface TravelFilterProps {
+interface Props {
 	state?: string // Permitimos string para evitar conflictos con la URL
 }
 
-const TravelFilter = ({ state }: TravelFilterProps) => {
+const TravelFilter = ({ state }: Props) => {
 	const router = useRouter()
 	const searchParams = useSearchParams()
 
-	const opcionesDeEstado = Object.values(estados)
+	const stateList = Object.values(states)
 
 	function handleFilterChange(term: string) {
 		const params = new URLSearchParams(searchParams.toString())
@@ -41,7 +40,7 @@ const TravelFilter = ({ state }: TravelFilterProps) => {
 	return (
 		<div className="mb-4 w-64">
 			<Combobox
-				items={opcionesDeEstado}
+				items={stateList}
 				value={state || 'todos'}
 				onValueChange={value => handleFilterChange((value as string) || '')}
 			>
@@ -61,11 +60,6 @@ const TravelFilter = ({ state }: TravelFilterProps) => {
 				</ComboboxContent>
 			</Combobox>
 		</div>
-		// <input
-		//   onChange={(e) => handleFilterChange(e.target.value)}
-		//   placeholder="Filtrar por destino..."
-		//   defaultValue={searchParams.get('destination') || ''}
-		// />
 	)
 }
 

@@ -1,9 +1,9 @@
 import TravelManager from '@/components/TravelManager'
 
-export default function Page({
+export default async function Page({
 	searchParams
 }: {
-	searchParams: Record<string, string | string[] | undefined>
+	searchParams: Promise<Record<string, string | string[] | undefined>>
 }) {
 	return <TravelManager searchParams={searchParams} />
 }

@@ -3,8 +3,6 @@ import type { Travel, TravelInput } from './types'
 
 const API_URL = 'http://localhost:3001/api/travels'
 
-
-
 export async function fetchAllTravels(estado?: string): Promise<Travel[]> {
 	// Construimos la URL con el parámetro de búsqueda si existe
 	const url = new URL(API_URL)

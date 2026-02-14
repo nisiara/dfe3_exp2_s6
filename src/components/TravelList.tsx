@@ -10,6 +10,7 @@ import {
 	TableRow
 } from '@/components/ui/table'
 import type { Travel } from '@/lib/types'
+import TravelChangeStatus from './TravelChangeStatus'
 
 type TravelListProps = {
 	travels: Travel[]
@@ -79,10 +80,7 @@ const TravelList = async ({ travels }: TravelListProps) => {
 							</Badge>
 						</TableCell>
 						<TableCell>
-							{/* <ChangeStatusTravel
-                travel={travel}
-                handleStatusChange={handleStatusChange}
-              /> */}
+							<TravelChangeStatus travel={travel} />
 						</TableCell>
 					</TableRow>
 				))}
