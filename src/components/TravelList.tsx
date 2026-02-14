@@ -13,11 +13,11 @@ import type { Travel } from '@/lib/types'
 import TravelChangeStatus from './TravelChangeStatus'
 import TravelDeleteButton from './TravelDeleteButton'
 
-type TravelListProps = {
+type Props = {
 	travels: Travel[]
 }
 
-const TravelList = async ({ travels }: TravelListProps) => {
+const TravelList = async ({ travels }: Props) => {
 	return travels.length === 0 ? (
 		<div className="bg-yellow-100 p-4 rounded text-yellow-600">
 			<p className="text-center text-xs font-semibold">No hay registros</p>

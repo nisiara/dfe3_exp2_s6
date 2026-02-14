@@ -5,11 +5,11 @@ import TravelList from './TravelList'
 import TravelSummary from './TravelSummary'
 import { Card, CardContent, CardHeader } from './ui/card'
 
-type TravelManagerProps = {
+type Props = {
 	searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }
 
-const TravelManager = async ({ searchParams }: TravelManagerProps) => {
+const TravelManager = async ({ searchParams }: Props) => {
 	const params = await searchParams
 
 	const rawState = Array.isArray(params.estado) ? params.estado[0] : params.estado

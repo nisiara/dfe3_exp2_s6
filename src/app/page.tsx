@@ -1,9 +1,26 @@
+import { Suspense } from 'react'
 import TravelManager from '@/components/TravelManager'
+import HomeSkeleton from '@/components/skeletons/HomeSkeleton'
 
-export default async function Page({
+type RouteSearchParams = Record<string, string | string[] | undefined>
+
+async function TravelManagerWithDelay({
 	searchParams
 }: {
-	searchParams: Promise<Record<string, string | string[] | undefined>>
+	searchParams: RouteSearchParams
 }) {
-	return <TravelManager searchParams={searchParams} />
+	await new Promise(resolve => setTimeout(resolve, 5000))
+	return <TravelManager searchParams={Promise.resolve(searchParams)} />
+}
+
+export default function Page({
+	searchParams
+}: {
+	searchParams: RouteSearchParams
+}) {
+	return (
+		<Suspense fallback={<HomeSkeleton />}>
+			<TravelManagerWithDelay searchParams={searchParams} />
+		</Suspense>
+	)
 }

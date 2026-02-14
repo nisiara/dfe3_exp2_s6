@@ -13,7 +13,7 @@ import {
 	DialogTrigger
 } from '@/components/ui/dialog'
 
-type TravelDeleteConfirmationProps = {
+type Props = {
 	trigger: ReactNode
 	onConfirm: () => Promise<void> | void
 	isProcessing?: boolean
@@ -31,7 +31,7 @@ const TravelDeleteConfirmation = ({
 	description = 'Esta acción no se puede deshacer y eliminará permanentemente este viaje.',
 	confirmLabel = 'Eliminar',
 	cancelLabel = 'Cancelar'
-}: TravelDeleteConfirmationProps) => {
+}: Props) => {
 	const [open, setOpen] = useState(false)
 
 	async function handleConfirm() {

@@ -7,11 +7,11 @@ import { Button } from '@/components/ui/button'
 import { deleteTravel } from '@/lib/api'
 import TravelDeleteConfirmation from './TravelDeleteConfirmation'
 
-interface TravelDeleteButtonProps {
+interface Props {
 	travelId: string
 }
 
-const TravelDeleteButton = ({ travelId }: TravelDeleteButtonProps) => {
+const TravelDeleteButton = ({ travelId }: Props) => {
 	const router = useRouter()
 	const [isDeleting, setIsDeleting] = useState(false)
 

@@ -1,11 +1,11 @@
 import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import type { Travel } from '@/lib/types'
 
-type TravelSummaryProps = {
+type Props = {
 	travels: Travel[]
 }
 
-const TravelSummary = async ({ travels }: TravelSummaryProps) => {
+const TravelSummary = async ({ travels }: Props) => {
 	const viajesConfirmados = travels.filter(travel => travel.estado === 'confirmado')
 	const viajesEnProceso = travels.filter(travel => travel.estado === 'en proceso')
 	const viajesFinalizados = travels.filter(travel => travel.estado === 'finalizado')
