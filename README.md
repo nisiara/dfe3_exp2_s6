@@ -91,6 +91,8 @@ Antes de ejecutar el proyecto, asegúrate de tener instalados:
 - `GET /api/travels`: Obtener todos los viajes.
 - `PATCH /api/travels/:id/status`: Actualizar el estado de un viaje.
 - `GET /api/travels/status/:status`: Obtener viajes por estado (en proceso, confirmado, finalizado).
+- `DELETE /api/travels/:id`: Elimina el vije por su id.
+
 
 ## Estructura del Proyecto
 
@@ -99,8 +101,7 @@ dfe3_exp2_s6/
 ├── src/
 │   ├── app/
 │   │   ├── page.tsx                 # Dashboard con TravelSummary + TravelList bajo Suspense
-│   │   ├── create-travel/page.tsx   # Formulario (TravelCreateForm) con delay simulado
-│   │   └── list-travels/page.tsx    # Vista alternativa solo para listado
+│   │   ├── create-travel/page.tsx   # Formulario (TravelCreateForm) con delay simulado   
 │   ├── components/
 │   │   ├── TravelManager.tsx        # Componente servidor que trae y filtra viajes
 │   │   ├── TravelCreateForm.tsx     # Formulario cliente para crear viajes
@@ -110,6 +111,7 @@ dfe3_exp2_s6/
 │   │   └── ui/                      # Componentes Shadcn UI
 │   ├── lib/
 │   │   ├── api.tsx                  # Fetchers hacia el backend
+│   │   ├── types.ts                 # Interfaces
 │   │   └── utils.ts                 # Helpers generales
 │   └── hooks/
 │       └── use-mobile.ts            # Hook para navegación responsive
