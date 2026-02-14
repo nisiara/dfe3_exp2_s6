@@ -1,8 +1,4 @@
-import {
-	IconDashboard,
-	IconGlobe,
-	IconPencilPlus,
-} from '@tabler/icons-react'
+import { IconDashboard, IconGlobe, IconPencilPlus } from '@tabler/icons-react'
 import Link from 'next/link'
 import { NavMain } from '@/components/nav-main'
 import {

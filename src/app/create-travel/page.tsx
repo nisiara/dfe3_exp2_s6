@@ -1,6 +1,6 @@
 import { Suspense } from 'react'
-import TravelCreateNew from '@/components/TravelCreateNew'
 import CreateTravelSkeleton from '@/components/skeletons/CreateTravelSkeleton'
+import TravelCreateNew from '@/components/TravelCreateNew'
 
 async function TravelCreateNewWithDelay() {
 	await new Promise(resolve => setTimeout(resolve, 5000))

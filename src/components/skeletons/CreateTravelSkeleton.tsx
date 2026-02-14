@@ -1,3 +1,4 @@
+import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import {
 	Field,
 	FieldDescription,
@@ -7,7 +8,6 @@ import {
 	FieldSeparator,
 	FieldSet
 } from '@/components/ui/field'
-import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
 
 const clientFields = ['RUT', 'Full Name', 'Email Address']
