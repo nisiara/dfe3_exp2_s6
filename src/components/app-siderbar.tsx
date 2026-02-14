@@ -1,13 +1,6 @@
 'use client'
 
-import {
-	IconDashboard,
-	IconFolder,
-	IconGlobe,
-	IconListDetails,
-	IconPencilPlus,
-	IconUsers
-} from '@tabler/icons-react'
+import { IconDashboard, IconGlobe, IconListDetails, IconPencilPlus } from '@tabler/icons-react'
 import Link from 'next/link'
 import { NavMain } from '@/components/nav-main'
 import {
@@ -30,11 +23,6 @@ const data = {
 			title: 'Crear Registro',
 			url: '/create-travel',
 			icon: IconPencilPlus
-		},
-		{
-			title: 'Lista de Registros',
-			url: '/list-travels',
-			icon: IconListDetails
 		}
 	]
 }

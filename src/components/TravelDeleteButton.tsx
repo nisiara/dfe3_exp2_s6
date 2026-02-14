@@ -1,8 +1,8 @@
 'use client'
 
+import { IconTrashX } from '@tabler/icons-react'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import { IconTrashX } from '@tabler/icons-react'
 import { Button } from '@/components/ui/button'
 import { deleteTravel } from '@/lib/api'
 import TravelDeleteConfirmation from './TravelDeleteConfirmation'

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, type ReactNode } from 'react'
+import { type ReactNode, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import {
 	Dialog,
@@ -44,7 +44,10 @@ const TravelDeleteConfirmation = ({
 	}
 
 	return (
-		<Dialog open={open} onOpenChange={setOpen}>
+		<Dialog
+			open={open}
+			onOpenChange={setOpen}
+		>
 			<DialogTrigger asChild>{trigger}</DialogTrigger>
 			<DialogContent className="sm:max-w-sm">
 				<DialogHeader>

@@ -17,7 +17,6 @@ type TravelListProps = {
 	travels: Travel[]
 }
 
-
 const TravelList = async ({ travels }: TravelListProps) => {
 	return travels.length === 0 ? (
 		<div className="bg-yellow-100 p-4 rounded text-yellow-600">
