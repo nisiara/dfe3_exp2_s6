@@ -17,7 +17,13 @@ type TravelListProps = {
 }
 
 const TravelList = async ({ travels }: TravelListProps) => {
-	return (
+	return travels.length === 0 ? (
+		<div className="bg-yellow-100 p-4 rounded text-yellow-600">
+			<p className="text-center text-xs font-semibold">No hay registros</p>
+		</div>
+		) 
+		: 
+		(
 		<Table>
 			<TableHeader className="bg-slate-100">
 				<TableRow>
@@ -85,7 +91,8 @@ const TravelList = async ({ travels }: TravelListProps) => {
 					</TableRow>
 				))}
 			</TableBody>
-		</Table>
+		</Table>	
+		
 	)
 }
 
