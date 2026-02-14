@@ -1,9 +1,15 @@
 import { IconChartLine, IconListDetails } from '@tabler/icons-react'
+import dynamic from 'next/dynamic'
 import { fetchAllTravels } from '@/lib/api'
 import TravelFilter from './TravelFilter'
 import TravelList from './TravelList'
-import TravelSummary from './TravelSummary'
 import { Card, CardContent, CardHeader } from './ui/card'
+import { Spinner } from './ui/spinner'
+
+const TravelSummary = dynamic(() => import('./TravelSummary'), {
+	loading: () => <Spinner />,
+	ssr: true
+})
 
 type Props = {
 	searchParams: Promise<{ [key: string]: string | string[] | undefined }>

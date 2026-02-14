@@ -1,11 +1,17 @@
 'use client'
 
 import { IconTrashX } from '@tabler/icons-react'
+import dynamic from 'next/dynamic'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
+import { Spinner } from '@/components/ui/spinner'
 import { deleteTravel } from '@/lib/api'
-import TravelDeleteConfirmation from './TravelDeleteConfirmation'
+
+const TravelDeleteConfirmation = dynamic(() => import('./TravelDeleteConfirmation'), {
+	loading: () => <Spinner />,
+	ssr: false
+})
 
 interface Props {
 	travelId: string

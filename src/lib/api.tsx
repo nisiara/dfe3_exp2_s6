@@ -39,24 +39,6 @@ export async function fetchAllTravels(estado?: string): Promise<Travel[]> {
 	}))
 }
 
-export async function fetchFilteredTravels(status: Travel['estado']): Promise<Travel[]> {
-	const response = await fetch(`${API_URL}/status/${status}`)
-	const json = await response.json()
-	if (!response.ok) {
-		throw new Error(json?.message || 'Error al filtrar los viajes por estado')
-	}
-	const data = json.data || []
-	return data.map((travel: TravelInput & { id: string; estado: Travel['estado'] }) => ({
-		...travel,
-		fechaSalida: travel.fechaSalida
-			? parse(travel.fechaSalida, 'dd-MM-yyyy', new Date())
-			: new Date(),
-		fechaRegreso: travel.fechaRegreso
-			? parse(travel.fechaRegreso, 'dd-MM-yyyy', new Date())
-			: new Date()
-	}))
-}
-
 export async function createTravel(travel: TravelInput): Promise<Travel> {
 	const response = await fetch(API_URL, {
 		method: 'POST',
@@ -70,25 +52,6 @@ export async function createTravel(travel: TravelInput): Promise<Travel> {
 		throw result
 	}
 	return result
-}
-
-export async function filterTravelsByStatus(status: Travel['estado']): Promise<Travel[]> {
-	const response = await fetch(`${API_URL}/status/${status}`)
-	const json = await response.json()
-	if (!response.ok) {
-		throw new Error(json?.message || 'Error al filtrar los viajes por estado')
-	}
-	const data = json.data || []
-	console.log('Viajes filtrados por estado:', data)
-	return data.map((travel: TravelInput & { id: string; estado: Travel['estado'] }) => ({
-		...travel,
-		fechaSalida: travel.fechaSalida
-			? parse(travel.fechaSalida, 'dd-MM-yyyy', new Date())
-			: new Date(),
-		fechaRegreso: travel.fechaRegreso
-			? parse(travel.fechaRegreso, 'dd-MM-yyyy', new Date())
-			: new Date()
-	}))
 }
 
 export async function updateTravelStatus(id: string, status: Travel['estado']): Promise<Travel> {
@@ -116,9 +79,7 @@ export async function deleteTravel(id: string): Promise<void> {
 		try {
 			const error = await response.json()
 			message = error?.message || message
-		} catch (_err) {
-			// Ignoramos errores de parseo
-		}
+		} catch (_err) {}
 		throw new Error(message)
 	}
 }

@@ -4,15 +4,15 @@ import TravelManager from '@/components/TravelManager'
 
 type RouteSearchParams = Record<string, string | string[] | undefined>
 
-async function TravelManagerWithDelay({ searchParams }: { searchParams: RouteSearchParams }) {
-	await new Promise(resolve => setTimeout(resolve, 5000))
+async function DelayTravelManager({ searchParams }: { searchParams: RouteSearchParams }) {
+	await new Promise(resolve => setTimeout(resolve, 3000))
 	return <TravelManager searchParams={Promise.resolve(searchParams)} />
 }
 
 export default function Page({ searchParams }: { searchParams: RouteSearchParams }) {
 	return (
 		<Suspense fallback={<HomeSkeleton />}>
-			<TravelManagerWithDelay searchParams={searchParams} />
+			<DelayTravelManager searchParams={searchParams} />
 		</Suspense>
 	)
 }

@@ -1,10 +1,5 @@
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
-import {
-	Field,
-	FieldGroup,
-	FieldSeparator,
-	FieldSet
-} from '@/components/ui/field'
+import { Field, FieldGroup, FieldSeparator, FieldSet } from '@/components/ui/field'
 import { Skeleton } from '@/components/ui/skeleton'
 
 const clientFields = ['RUT', 'Full Name', 'Email Address']
@@ -23,7 +18,7 @@ const CreateTravelSkeleton = () => {
 					<FieldGroup className="gap-6">
 						<FieldSet>
 							<Skeleton className="h-6 w-48" />
-						
+
 							<FieldGroup className="gap-4 rounded-md border border-slate-200 p-5">
 								{clientFields.map(label => (
 									<Field
@@ -38,7 +33,7 @@ const CreateTravelSkeleton = () => {
 						</FieldSet>
 
 						<FieldSet>
-              <Skeleton className="h-6 w-48" />
+							<Skeleton className="h-6 w-48" />
 							<FieldGroup className="gap-5 rounded-md border border-slate-200 p-5">
 								<Skeleton className="h-6 w-48" />
 								<div className="max-w-sm space-y-3">
@@ -57,7 +52,7 @@ const CreateTravelSkeleton = () => {
 							</FieldGroup>
 
 							<FieldGroup className="mt-4 gap-4 rounded-md border border-slate-200 p-5">
-                <Skeleton className="h-6 w-48" />
+								<Skeleton className="h-6 w-48" />
 								<Field className="gap-1">
 									<Skeleton className="h-4 w-16" />
 									<Skeleton className="h-10 w-full rounded-md" />
@@ -67,23 +62,23 @@ const CreateTravelSkeleton = () => {
 									<Skeleton className="h-10 w-32 rounded-md" />
 								</Field>
 								<Field className="gap-1">
-										<Skeleton className="h-4 w-16" />
+									<Skeleton className="h-4 w-16" />
 									<Skeleton className="h-10 w-32 rounded-md" />
 								</Field>
 							</FieldGroup>
 
 							<FieldGroup className="mt-4 gap-4 rounded-md border border-slate-200 p-5">
-                <Skeleton className="h-6 w-48" />
+								<Skeleton className="h-6 w-48" />
 								<Field className="gap-1">
-                  <Skeleton className="h-4 w-16" />
+									<Skeleton className="h-4 w-16" />
 									<Skeleton className="h-10 w-full rounded-md" />
 								</Field>
 								<Field className="gap-1">
-                  <Skeleton className="h-4 w-16" />
+									<Skeleton className="h-4 w-16" />
 									<Skeleton className="h-10 w-32 rounded-md" />
 								</Field>
 								<Field className="gap-1">
-                  <Skeleton className="h-4 w-16" />
+									<Skeleton className="h-4 w-16" />
 									<Skeleton className="h-10 w-32 rounded-md" />
 								</Field>
 							</FieldGroup>

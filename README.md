@@ -21,6 +21,7 @@ El frontend proporciona una interfaz de usuario moderna y responsiva utilizando 
 - **Validación de Datos**: Middleware para validar entradas en el backend.
 - **Almacenamiento de Datos**: Datos almacenados en archivos JSON para simplicidad (adecuado para desarrollo y pruebas).
 - **Skeletons y Suspense**: Páginas principales con `Suspense` y skeletons (`HomeSkeleton`, `CreateTravelSkeleton`) que simulan una demora de 5 segundos para mostrar escenarios de carga.
+- **next/dynamic**: Carga diferida de componentes.
 
 ## Tecnologías Utilizadas
 
